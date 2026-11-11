@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Healthy Habits · English in Action 4</title>
+<style>
+:root{--ink:#173c3b;--paper:#f5f4ed;--green:#cce8bc;--accent:#17685b}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif}header,main,footer{max-width:1200px;margin:auto;padding:24px}header{padding-top:40px} .eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:bold}h1{font-size:clamp(36px,6vw,66px);letter-spacing:-2px;margin:10px 0}h2{font-size:20px}p{line-height:1.5}.intro{max-width:750px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0}button,select{font:inherit;padding:11px 16px;border:1px solid var(--ink);border-radius:9px;background:white;color:var(--ink);cursor:pointer}button.primary{background:var(--ink);color:white}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #c56020;outline-offset:3px}.guide{background:#e4ecdf;padding:18px 22px;border-radius:14px;margin:20px 0}.guide p{margin:8px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #c7d2c8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:330px;box-shadow:0 4px 0 #dde2d5}.card-top{padding:13px 20px;background:var(--green);display:flex;justify-content:space-between;font-size:12px;font-weight:bold;letter-spacing:.5px}.body{padding:20px;flex:1}.word{font-size:23px;margin:0 0 8px}.task{font-size:18px;line-height:1.5;margin:0}.hint{font-size:13px;color:#546d66;margin-top:14px}details{border-top:1px dashed #bbcfc1;padding:14px 20px;background:#f3f8ef}summary{cursor:pointer;font-weight:bold;font-size:14px}.answer{line-height:1.6;font-size:15px;margin:10px 0 0}.count{font-size:14px;margin-left:auto}.note{font-size:13px;color:#48605b}footer{font-size:13px}.empty{padding:30px}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:580px){.grid{grid-template-columns:1fr}header,main,footer{padding:18px}h1{letter-spacing:-1px}}@media print{@page{size:A4;margin:10mm}body{background:white;color:#111}header{padding:0}h1{font-size:28px;letter-spacing:-.5px}.intro,.toolbar,.guide,footer,.screen-only{display:none}main{padding:0}.grid{grid-template-columns:repeat(2,1fr);gap:5mm}.card{box-shadow:none;border:1px solid #555;border-radius:7px;min-height:78mm;break-inside:avoid;page-break-inside:avoid}.body{padding:4mm}.card-top{padding:3mm 4mm;background:#eee!important;color:#111}.word{font-size:18px}.task{font-size:15px}.hint{font-size:11px}details{display:none}body.print-answers details{display:block;padding:3mm 4mm}body.print-answers details summary{display:none}.answer{font-size:12px;margin:0}h2{font-size:16px}header .eyebrow{font-size:10px}}
+
+.word{text-align:center;margin-bottom:18px}h1{text-align:center}.card-top{justify-content:center}.grid.board{grid-template-columns:repeat(6,minmax(0,1fr))}.board .card{min-height:150px;border:0;box-shadow:none;background:transparent}.back{width:100%;min-height:150px;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;background:repeating-linear-gradient(45deg,#173c3b,#173c3b 10px,#214b47 10px,#214b47 12px);color:white;border:2px solid #91b7a0;border-radius:16px;font-size:24px;box-shadow:0 4px 0 #c8d2c4}.back small{font-size:12px;letter-spacing:1px}.back.used{background:#dce7d5;color:#173c3b;box-shadow:none}.back:hover{transform:translateY(-3px)}dialog{border:1px solid #91b7a0;border-radius:20px;padding:24px;width:min(620px,92vw);max-height:90vh;overflow:auto;color:var(--ink);background:var(--paper)}dialog::backdrop{background:#102f2bd9}dialog .card{min-height:0;margin-bottom:20px}dialog .word{font-size:30px}dialog .task{font-size:23px}dialog>button{width:100%}@media(max-width:800px){.grid.board{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:480px){.grid.board{grid-template-columns:repeat(3,minmax(0,1fr))}.back,.board .card{min-height:115px}}@media(prefers-reduced-motion:reduce){.back:hover{transform:none}}@media print{dialog{display:none!important}.grid.board{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>Healthy Habits</h1>
+<div class="toolbar"><button class="primary" id="new-game">Shuffle & start again</button><button id="view">Show all cards</button><button id="print">Print cards</button><label><input type="checkbox" id="include"> Print language help</label><span class="count" id="count" aria-live="polite"></span></div><p class="note screen-only" id="instructions">Choose a face-down card. Talk with your partner, then select “Done · next pair”. Used cards stay marked. The topics are shuffled and hidden.</p></header>
+<main><div class="grid" id="cards"></div></main><dialog id="chosen" aria-labelledby="chosen-topic"><div id="chosen-content"></div><button class="primary" id="done">Done · next pair</button></dialog><footer><em>Resource Pack 4, English in Action 4</em><br><strong>Coordinación de Lenguas Extranjeras, Ministerio de Educación de la provincia de Chubut</strong></footer>
+<script>
+const all=[
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Digital detox",
+    "task": "Compare yesterday evening. Ask about phones, meals and sleep. Find two things you both didn’t do. Share them with another pair.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 1
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Screen time",
+    "task": "Ask when your partner used screens yesterday and when they didn’t. Find a screen-free activity you both enjoyed.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 2
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Notification",
+    "task": "Ask which notifications your partner checked and didn’t check yesterday. Find one type of notification you both ignored.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 3
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Scroll",
+    "task": "Compare what you looked at online yesterday. Ask about music, sport and videos. Find one thing neither of you looked at.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 4
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Bedtime",
+    "task": "Compare last night. Ask when you went to bed and what you did before bed. Find one similarity and one difference.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 5
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Stress",
+    "task": "Describe a school day. Ask what made your partner feel stressed and what they did to relax. Find something you both tried.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 6
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Break",
+    "task": "Compare your breaks yesterday. Ask what you did and didn’t do. Find one break activity you both enjoyed.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 7
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Fresh air",
+    "task": "Ask about last weekend outdoors. Where did your partner go? What did they do? Find one outdoor activity neither of you tried.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 8
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Relax",
+    "task": "Compare how you relaxed yesterday. Ask about music, games and hobbies. Choose one activity you would both like to do again.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 9
+  },
+  {
+    "type": "negative",
+    "label": "Find common ground",
+    "word": "Routine",
+    "task": "Compare yesterday’s routines. Ask about breakfast, homework and sleep. Find two shared habits and one you didn’t share.",
+    "answer": "Did you … yesterday? What did you …? I didn’t … . We both … . Neither of us … .",
+    "id": 10
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Switch off",
+    "task": "One of your mates slept badly. Ask your partner if he knows what this classmate did with his phone last night. Agree on suggesting one change for tonight.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 11
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Offline",
+    "task": "Plan a phone-free hour. First, ask what your partner did offline last weekend and what they didn’t enjoy. Choose two activities together.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 12
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Focus",
+    "task": "A student couldn’t finish his homework yesterday. Ask your partner if he knows what he was doing. Agree on one helpful change.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 13
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Exercise",
+    "task": "Choose an activity for a class break. Ask which exercise your partner tried last week and which they didn’t enjoy. Agree on an activity both can join.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 14
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Sleep",
+    "task": "One of your mates felt tired this morning. Ask your partner if he knows what this classmate did and didn’t do last night. Agree on suggesting one change for tonight.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 15
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Mindful",
+    "task": "Choose a one-minute calm activity for the class. Ask whether your partner tried slow breathing, quiet drawing or stretching last week. Find out what helped and choose together.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 16
+  },
+  {
+    "type": "question",
+    "label": "Solve it together",
+    "word": "Balance",
+    "task": "Plan a balanced Saturday. Ask what your partner did last Saturday and what they didn’t have time for. Include one activity each person missed.",
+    "answer": "Did they …? What did they do? They didn’t … . Let’s … . Good idea. / How about …?",
+    "id": 17
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Phone-free",
+    "task": "Interview your partner about their last meal with other people. Ask about phones and conversation. Tell another pair one thing your partner did and one thing they didn’t do.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 18
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Calm",
+    "task": "Interview one of your mates about a calm moment yesterday. Ask where they went, what they did and what they didn’t use. Introduce their calm moment to the class.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 19
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Energy",
+    "task": "Find out about your partner’s energy yesterday. Ask about sleep, food and movement. Report one thing they did and one thing they didn’t do; your partner checks your report.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 20
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Social media",
+    "task": "Interview your partner about social media yesterday. Ask when they used it, what they saw and what they didn’t post. Share one agreed detail with another pair.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 21
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Connect",
+    "task": "Interview your partner about a conversation last weekend. Ask who they talked to, where and what they did together. Report one thing that happened and one thing that didn’t.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 22
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Rest",
+    "task": "Interview your partner about last weekend. Ask when they rested and what they didn’t have time to do. Tell another pair what kind of break your partner enjoyed.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 23
+  },
+  {
+    "type": "ask",
+    "label": "Interview & report",
+    "word": "Active",
+    "task": "Interview your partner about movement yesterday. Ask about walking, dancing or sport. Report one activity they did and one they didn’t do.",
+    "answer": "Did you …? Who did you … with? I didn’t … . My partner … . My partner didn’t … .",
+    "id": 24
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Limit",
+    "task": "Compare yesterday’s screen use. Ask what you used your phone for and what you didn’t need it for. Agree on one realistic screen-time limit for a class challenge.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 25
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Outdoors",
+    "task": "Compare your last outdoor activities. Ask where you went, what you did and what you didn’t enjoy. Choose a place for a class outing that suits both of you.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 26
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Wellbeing",
+    "task": "Invent two healthy afternoons. Take one each and ask questions to discover your partner’s afternoon. Explain what each person didn’t do. Combine your favourite parts into one plan.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 27
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Recharge",
+    "task": "Compare how you rested last weekend. Ask what helped you recharge and what didn’t. Agree on two choices for a class rest menu.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 28
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Face-to-face",
+    "task": "Compare an online chat and a face-to-face conversation you had or invent having yesterday. Ask what happened and what you didn’t like. Decide which works better for planning a class event.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 29
+  },
+  {
+    "type": "challenge",
+    "label": "Compare & decide",
+    "word": "Healthy habit",
+    "task": "Choose a seven-day class habit challenge. First, ask what healthy habits your partner tried last week and what they didn’t manage to do. Agree on one achievable habit and how to track it.",
+    "answer": "Did you …? What did you …? I didn’t … . What about you? Let’s choose … because … .",
+    "id": 30
+  }
+];
+
+let order=[...all],board=true;const used=new Set();const cards=document.querySelector('#cards'),dialog=document.querySelector('#chosen');
+function shuffle(){for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}}
+function face(c){const a=document.createElement('article');a.className='card';const top=document.createElement('div');top.className='card-top';top.textContent='Card '+String(c.id).padStart(2,'0');const body=document.createElement('div');body.className='body';const word=document.createElement('h2');word.className='word';word.textContent=c.word;const task=document.createElement('p');task.className='task';task.textContent=c.task;body.append(word,task);const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Language help · examples';const answer=document.createElement('p');answer.className='answer';answer.textContent=c.answer;details.append(summary,answer);a.append(top,body,details);return a}
+function render(){cards.replaceChildren();cards.classList.toggle('board',board);order.forEach((c,i)=>{if(!board){cards.append(face(c));return}const a=document.createElement('article');a.className='card';const b=document.createElement('button');b.className='back'+(used.has(c.id)?' used':'');b.type='button';b.setAttribute('aria-label',(used.has(c.id)?'Reopen used card at position ':'Choose face-down card at position ')+(i+1));const n=document.createElement('span');n.textContent=String(i+1).padStart(2,'0');const caption=document.createElement('small');caption.textContent=used.has(c.id)?'USED · OPEN AGAIN':'CHOOSE A CARD';b.append(n,caption);b.addEventListener('click',()=>{used.add(c.id);const content=document.querySelector('#chosen-content');const front=face(c);front.querySelector('h2').id='chosen-topic';content.replaceChildren(front);dialog.showModal();render()});a.append(b);cards.append(a)});document.querySelector('#count').textContent=board?(all.length-used.size)+' of '+all.length+' cards left':all.length+' cards';document.querySelector('#view').textContent=board?'Show all cards':'Back to game';document.querySelector('#instructions').hidden=!board}
+function closeCard(){dialog.close()}
+document.querySelector('#done').addEventListener('click',closeCard);
+document.querySelector('#new-game').addEventListener('click',()=>{if(dialog.open)dialog.close();used.clear();order=[...all];shuffle();board=true;render()});document.querySelector('#view').addEventListener('click',()=>{board=!board;render()});
+let savedBoard=true;window.addEventListener('beforeprint',()=>{savedBoard=board;board=false;render();const include=document.querySelector('#include').checked;document.body.classList.toggle('print-answers',include);document.querySelectorAll('#cards details').forEach(d=>d.open=include)});window.addEventListener('afterprint',()=>{board=savedBoard;document.body.classList.remove('print-answers');render()});document.querySelector('#print').addEventListener('click',()=>window.print());shuffle();render();
+</script>
+</body>
+</html>
